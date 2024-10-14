@@ -1,3 +1,4 @@
+# Software
 # Prerequisites
 *.d
 
@@ -30,3 +31,48 @@
 *.exe
 *.out
 *.app
+
+# Hardware
+# Vivado specific files
+*.log
+*.jou
+*.str
+*.dcp
+*.rpt
+*.xml
+*.xpr
+*.runs/
+*.sim/
+*.cache/
+*.hw/
+*.sdk/
+*.srcs/sources_1/bd/*/ip/*/
+*.srcs/sources_1/bd/*/ipshared/
+*.srcs/sources_1/bd/*/sim/
+
+# Generated files
+*.bit
+*.bin
+*.elf
+*.coe
+*.tcl
+*.ltx
+
+# IP and constraint files
+*.ip_user_files/
+*.ipshared/
+*.xgui/
+
+# Backup files
+*.backup
+*.bkp
+*.bak
+*.tmp
+*.temp
+*.log
+
+# MacOS specific
+.DS_Store
+
+# Windows specific
+Thumbs.db
