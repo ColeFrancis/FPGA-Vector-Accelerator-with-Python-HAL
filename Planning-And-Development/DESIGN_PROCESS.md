@@ -4,7 +4,7 @@
 
 What do we want to make?
 
-We want to design an architecture capable of accelerating common vector operations, and a HAL that allows the acceleratore to be interfaced in Python.
+We want to design an architecture capable of accelerating common vector operations, and a HAL that allows the accelerator to be interfaced in Python.
 
 ## Do Background Research
 
@@ -18,7 +18,7 @@ The accelerator will at least implement the following instructions:
 * Vector-vector addition
 * Sclar-vector multiplication
 * Vector dot product
-* Matrix-vector multiplication
+* Matrix-vector multiplication (With a dedicated fully parallel unit, or through a series of vector dot products)
 * Vector Relu operation
 
 The accelerator will be entirely implemented on our Basys3 FPGA.
