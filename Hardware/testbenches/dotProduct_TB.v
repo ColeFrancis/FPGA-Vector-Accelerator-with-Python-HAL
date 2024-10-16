@@ -5,7 +5,7 @@
 // 
 // Create Date: 10/11/2024 04:04:02 PM
 // Design Name: 
-// Module Name: cellTB
+// Module Name: dotProduct_TB
 // Project Name: 
 // Target Devices: Test bench
 // Tool Versions: 
@@ -13,14 +13,14 @@
 // 
 // Dependencies: None
 // 
-// Revision: 0.01
+// Revision: 0.02
 // Revision 0.01 - File Created
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module cellTB(); 
+module dotProduct_TB(); 
     //initialize the wires/regesters
     wire [0:7] matOut;
     reg clk;
@@ -61,8 +61,8 @@ module cellTB();
         end
     endgenerate
     
-    //instantiate the multiplierCell module
-    multiplierCell #(.MATRIXSIZE(5)) DUT (
+    //instantiate the dotProduct module
+    dotProduct #(.MATRIXSIZE(5)) DUT (
         .clk(clk),
         .a_flat(a_flat),
         .b_flat(b_flat),

@@ -5,7 +5,7 @@
 // 
 // Create Date: 10/11/2024 04:04:02 PM
 // Design Name: 
-// Module Name: multiplierCell
+// Module Name: dotProduct
 // Project Name: 
 // Target Devices: Basys 3
 // Tool Versions: 
@@ -13,13 +13,13 @@
 // 
 // Dependencies: None
 // 
-// Revision: 0.01
+// Revision: 0.02
 // Revision 0.01 - File Created
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module multiplierCell #(parameter MATRIXSIZE = 10, parameter INTSIZE = 8)(
+module dotProduct #(parameter MATRIXSIZE = 10, parameter INTSIZE = 8)(
     input clk,
     input [0:INTSIZE * MATRIXSIZE - 1] a_flat,   // Flattened input a
     input [0:INTSIZE * MATRIXSIZE - 1] b_flat,   // Flattened input b
