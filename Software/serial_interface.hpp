@@ -7,7 +7,7 @@
 * Constructor: (name of port, baud rate)
 * Member functions: 
 *	sendBytes (array of bytes, number of bytes to send) returns success
-*	readBytes (array of bytes to write to, number of bytes to receive) returns success
+*	readBytes (array of bytes to write in to, number of bytes to receive) returns success
 *****************************************************************************************/
 
 #ifdef _WIN32
