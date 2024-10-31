@@ -1,4 +1,4 @@
-#ifdef SERIAL_INTERFACE_H
+#ifndef SERIAL_INTERFACE_H
 #define SERIAL_INTERFACE_H
 
 /*****************************************************************************************
