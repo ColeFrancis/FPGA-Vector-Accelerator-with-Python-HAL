@@ -1,6 +1,9 @@
 #ifndef SERIAL_INTERFACE_H
 #define SERIAL_INTERFACE_H
 
+#include <iostream>
+#include <cstdint>
+
 /*****************************************************************************************
 * Class: SerialPort
 *
@@ -14,7 +17,6 @@
 // Windows version of port
 
 #include <windows.h>
-#include <iostream>
 
 class SerialPort {
 	public:
