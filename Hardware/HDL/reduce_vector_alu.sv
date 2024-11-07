@@ -1,33 +1,3 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 11/06/2024 07:23:01 PM
-// Design Name: 
-// Module Name: reduce_vector_alu
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
-// Functions: 
-//   00: sum of elements
-//   01: or reduction
-//   10: min value
-//   11: max value
-
-// put input array and set, then wait clock cycles until ready is enabled, then enable
-
-
 module reduce_vector_alu #(
         parameter BITS = 8,
         parameter N = 64
@@ -66,7 +36,21 @@ module reduce_vector_alu #(
         end
     endgenerate
     
-    // Finds sum, min, and max values
+    // Selects output
+    always_comb begin
+        if (en) begin
+            case (sel)
+                2'b00: out = sum_internal;
+                2'b01: out = or_internal;
+                2'b10: out = min_val;
+                2'b11: out = max_val;
+            endcase
+        end else begin
+            out = 'z;
+        end
+    end
+    
+    // Finds sum, or reduce, min, and max values
     always_ff @(posedge clk) begin
         if (set) begin
             sum_internal <= 0;
@@ -91,20 +75,6 @@ module reduce_vector_alu #(
                 running <= 0;
                 done <= 1;
             end
-        end
-    end
-    
-    // Selects output
-    always_comb begin
-        if (en) begin
-            case (sel)
-                2'b00: out = sum_internal;
-                2'b01: out = or_internal;
-                2'b10: out = min_val;
-                2'b11: out = max_val;
-            endcase
-        end else begin
-            out = 'z;
         end
     end
 endmodule
