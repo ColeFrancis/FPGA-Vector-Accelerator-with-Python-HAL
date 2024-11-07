@@ -1,19 +1,3 @@
-`timescale 1ns / 1ps
-
-///////////////////////////////////////
-// Op Table
-//
-// 000: A + B
-// 001: A - B
-// 010: A * B
-// 011: 1 if A>B, 0 if A==B, -1 if A<B
-// 100: A & B
-// 101: A | B
-// 110: A ^ B
-// 111: ~A
-//
-///////////////////////////////////////////
-
 module vector_element_alu #(
         parameter BITS = 8,
         parameter N = 64,
@@ -78,7 +62,7 @@ module single_element_alu #(
                 2'b10: S_int = A ^ B;
                 2'b11: S_int = ~A;
             endcase
-        end else begin // Arithmatic
+        end else begin // Arithmetic
             if (sel[1]) begin // Multiply / Compare
                 if (sel[0]) begin
                     S_int = cmp_out;
@@ -93,16 +77,7 @@ module single_element_alu #(
     
     // cmp_out = 1 if A>B, 0 if A==B, and -1 if A<B
     assign cmp_out[BITS-1:1] = { (BITS-1) {add_sub_out[BITS-1]} };
-    assign cmp_out[0] = |add_sub_out; 
-    
-    register #(
-        .BITS(BITS)
-    ) r (
-        .in(S_int),
-        .set(set),
-        .en(en),
-        .out(S)
-    );
+    assign cmp_out[0] = |add_sub_out;
     
     single_add_sub #(
         .BITS(BITS)
@@ -120,5 +95,14 @@ module single_element_alu #(
         .A(A),
         .B(B),
         .P(mult_out)
+    ); 
+    
+    register #(
+        .BITS(BITS)
+    ) r (
+        .in(S_int),
+        .set(set),
+        .en(en),
+        .out(S)
     );
 endmodule
