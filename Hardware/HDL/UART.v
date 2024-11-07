@@ -1,25 +1,3 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: Cole Francis
-// 
-// Create Date: 10/10/2024 09:32:46 AM
-// Design Name: Uart send and receive modules
-// Module Name: uart_rx, uart_tx
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
-
 module uart_rx #(
     parameter BAUD = 10_000,
     parameter CLK_FREQ = 100_000_000 // Basys 3 clk Freq is 100 MHz
