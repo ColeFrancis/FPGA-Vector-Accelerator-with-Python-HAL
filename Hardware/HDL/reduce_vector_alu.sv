@@ -60,6 +60,7 @@ module reduce_vector_alu #(
             index <= 0;
             done <= 0;
             running <= 1;
+                
         end else if (running) begin 
             if (index < N) begin // Ran every cycle as long as running 
                 if ($signed(in_saved[index]) > max_val)
