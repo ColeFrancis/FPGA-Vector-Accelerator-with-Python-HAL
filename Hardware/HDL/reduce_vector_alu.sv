@@ -72,6 +72,7 @@ module reduce_vector_alu #(
                 or_internal <= or_internal | in_saved[index];
                 
                 index <= index + 1;
+                    
             end else begin
                 running <= 0;
                 done <= 1;
