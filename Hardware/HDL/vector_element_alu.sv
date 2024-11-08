@@ -9,8 +9,8 @@ module vector_element_alu #(
         input logic [2:0] op_sel,
         input logic scalar_sel,
         input logic set,
-        output logic [BITS-1:0] S [N-1:0],
-        output logic en
+        input logic en,
+        output logic [BITS-1:0] S [N-1:0]
     );
     
     logic [BITS-1:0] B_inter [N-1:0];
@@ -44,8 +44,8 @@ module single_element_alu #(
         input logic [BITS-1:0] B,
         input logic [2:0] sel,
         input logic set,
-        output logic [BITS-1:0] S,
-        output logic en
+        input logic en,
+        output logic [BITS-1:0] S
     );
     
     logic [BITS-1:0] S_int;
