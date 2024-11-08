@@ -5,10 +5,10 @@ module reduce_vector_alu #(
         input logic signed [BITS-1:0] in [N-1:0],
         input logic [1:0] sel,
         input logic set, // Save the values into the initial layer registers and start
-        input logic en
+        input logic en,
         input logic clk,
         output logic signed [BITS-1:0] out,
-        output logic done, // when the value is valid
+        output logic done // when the value is valid
     );
     
     logic [BITS-1:0] in_saved [N-1:0];
