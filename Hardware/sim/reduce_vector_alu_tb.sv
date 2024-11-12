@@ -2,7 +2,8 @@
 
 module reduce_vector_alu_tb;
     parameter BITS = 8;
-    parameter N = 4;
+    parameter N = 8;
+    parameter VEC_IN_LEN = 4;
     
     logic [BITS-1:0] in [N-1:0];
     logic [1:0] sel;
@@ -17,6 +18,7 @@ module reduce_vector_alu_tb;
         .N(N)
     )DUT(
         .in(in),
+        .in_len(VEC_IN_LEN),
         .sel(sel),
         .set(set),
         .clk(clk),
