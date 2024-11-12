@@ -20,7 +20,9 @@ module vector_element_alu_tb;
         .MULT_SHIFT(MULT_SHIFT)
     ) alu (
         .A(A),
+        .A_len(N),
         .B(B),
+        .B_len(N),
         .scalar(scalar),
         .op_sel(op_sel),
         .scalar_sel(scalar_sel),
