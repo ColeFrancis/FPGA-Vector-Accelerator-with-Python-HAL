@@ -2,7 +2,8 @@ module vec_reg_bank #(
         parameter BITS = 8,
         parameter N = 64
     )(
-        input logic [BITS-1:0] data_in [N-1:0],
+        input logic [BITS-1:0] in [N-1:0],
+        input logic [7:0] in_len,
         input logic [3:0] in_sel,
         input logic write,
         input logic [3:0] out_sel_a,
@@ -10,11 +11,14 @@ module vec_reg_bank #(
         input logic out_en_a,
         input logic out_en_b,
         output logic [BITS-1:0] out_a [N-1:0],
-        output logic [BITS-1:0] out_b [N-1:0]
+        output logic [7:0] out_a_len,
+        output logic [BITS-1:0] out_b [N-1:0],
+        output logic [7:0] out_b_len
     );
     
     logic [15:0] reg_write;
     logic [BITS-1:0] reg_out [15:0][N-1:0];
+    logic [7:0] reg_len_out [15:0];
     
     // Input write
     demux_16 demux (
@@ -33,7 +37,15 @@ module vec_reg_bank #(
         .en(out_en_a),
         .out(out_a)
     );
-    
+
+    // A len
+    mux_16 #(8) mux_a_len (
+        .in(reg_len_out),
+        .sel(out_sel_a),
+        .en(out_en_a),
+        .out(out_a_len)
+    );
+        
     // Output B
     vec_mux_16 #(
         .BITS(BITS),
@@ -44,13 +56,30 @@ module vec_reg_bank #(
         .en(out_en_b),
         .out(out_b)
     );
+
+    // B len
+    mux_16 #(8) mux_b_len (
+        .in(reg_len_out),
+        .sel(out_sel_b),
+        .en(out_en_b),
+        .out(out_b_len)
+    );
     
     // Generate vector registers
     genvar i;
     generate
         for (i=0; i<16; i++) begin
+            register #(
+                .BITS(8)
+            ) len (
+                .in(in_len),
+                .set(reg_write[i]),
+                .en(1),
+                .out(reg_len_out[i])
+            );
+                
             vector_reg #() r (
-                .in(data_in),
+                .in(in),
                 .set(reg_write[i]),
                 .en(1),
                 .out(reg_out[i])
@@ -101,6 +130,47 @@ module vec_mux_16 #(
             for (int i = 0; i < N; i++) begin
                 out[i] = 'z;
             end
+        end
+    end
+endmodule
+
+module mux_16 #(
+        parameter BITS = 8
+    )(
+        input logic [BITS-1:0] in [15:0],
+        input logic [3:0] sel,
+        input logic en,
+        output logic [BITS-1:0] out
+    );
+    
+    logic [BITS-1:0] out_int;
+    
+    always_comb begin
+        case (sel)
+            0: out_int = in[0];
+            1: out_int = in[1];
+            2: out_int = in[2];
+            3: out_int = in[3];
+            4: out_int = in[4];
+            5: out_int = in[5];
+            6: out_int = in[6];
+            7: out_int = in[7];
+            8: out_int = in[8];
+            9: out_int = in[9];
+            10: out_int = in[10];
+            11: out_int = in[11];
+            12: out_int = in[12];
+            13: out_int = in[13];
+            14: out_int = in[14];
+            15: out_int = in[15];
+        endcase
+    end
+    
+    always_comb begin
+        if (en) begin
+            out[i] = out_int[i];
+        end else begin
+            out[i] = 'z;
         end
     end
 endmodule
