@@ -3,6 +3,7 @@ module reduce_vector_alu #(
         parameter N = 64
     )(
         input logic signed [BITS-1:0] in [N-1:0],
+        input logic [7:0] in_len,
         input logic [1:0] sel,
         input logic set, // Save the values into the initial layer registers and start
         input logic en,
@@ -62,7 +63,7 @@ module reduce_vector_alu #(
             running <= 1;
                 
         end else if (running) begin 
-            if (index < N) begin // Ran every cycle as long as running 
+                if (index < in_len) begin // Ran every cycle as long as running 
                 if ($signed(in_saved[index]) > max_val)
                     max_val <= in_saved[index];
                 else if ($signed(in_saved[index]) < min_val)
