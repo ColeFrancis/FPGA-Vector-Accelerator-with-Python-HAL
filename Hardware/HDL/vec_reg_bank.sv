@@ -3,7 +3,7 @@ module vec_reg_bank #(
         parameter N = 64
     )(
         input logic [BITS-1:0] in [N-1:0],
-        input logic [7:0] in_len,
+        input logic [BITS-1:0] in_len,
         input logic [3:0] in_sel,
         input logic write,
         input logic [3:0] out_sel_a,
@@ -11,9 +11,9 @@ module vec_reg_bank #(
         input logic out_en_a,
         input logic out_en_b,
         output logic [BITS-1:0] out_a [N-1:0],
-        output logic [7:0] out_a_len,
+        output logic [BITS-1:0] out_a_len,
         output logic [BITS-1:0] out_b [N-1:0],
-        output logic [7:0] out_b_len
+        output logic [BITS-1:0] out_b_len
     );
     
     logic [15:0] reg_write;
@@ -168,9 +168,9 @@ module mux_16 #(
     
     always_comb begin
         if (en) begin
-            out[i] = out_int[i];
+            out = out_int;
         end else begin
-            out[i] = 'z;
+            out = 'z;
         end
     end
 endmodule

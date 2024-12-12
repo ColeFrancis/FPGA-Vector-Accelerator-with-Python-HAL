@@ -22,9 +22,10 @@
 
 module vec_reg_bank_tb;
     parameter BITS = 8;
-    parameter N = 2;
+    parameter N = 4;
     
     logic [BITS-1:0] data_in [N-1:0];
+    logic [7:0] in_len;
     logic [3:0] in_sel;
     logic write;
     logic [3:0] out_sel_a;
@@ -32,13 +33,16 @@ module vec_reg_bank_tb;
     logic out_en_a;
     logic out_en_b;
     logic [BITS-1:0] out_a [N-1:0];
+    logic [7:0] out_a_len;
     logic [BITS-1:0] out_b [N-1:0];
+    logic [7:0] out_b_len;
     
     vec_reg_bank #(
         .BITS(BITS),
         .N(N)
     ) bank (
-        .data_in(data_in),
+        .in(data_in),
+        .in_len(in_len),
         .in_sel(in_sel),
         .write(write),
         .out_sel_a(out_sel_a),
@@ -46,12 +50,17 @@ module vec_reg_bank_tb;
         .out_en_a(out_en_a),
         .out_en_b(out_en_b),
         .out_a(out_a),
-        .out_b(out_b)
+        .out_a_len(out_a_len),
+        .out_b(out_b),
+        .out_b_len(out_b_len)
     );
     
     initial begin
         data_in[0] = 8'b00001111;
         data_in[1] = 8'b00111100;
+        data_in[2] = 8'b00000000;
+        data_in[3] = 8'b00000000;
+        in_len = 2;
         
         in_sel = 0;
          
@@ -65,6 +74,8 @@ module vec_reg_bank_tb;
         in_sel = 1;
         data_in[0] = 8'b11111111;
         data_in[1] = 8'b01111110;
+        data_in[2] = 8'b01111101;
+        in_len = 3;
         
         #5
         
@@ -76,6 +87,8 @@ module vec_reg_bank_tb;
         in_sel = 2;
         data_in[0] = 8'b00000001;
         data_in[1] = 8'b00000000;
+        data_in[2] = 8'b00000000;
+        in_len = 2;
         
         #5
         
@@ -83,7 +96,7 @@ module vec_reg_bank_tb;
         
         #5
         
-        out_sel_a = 2;
+        out_sel_a = 1;
         out_sel_b = 0;
         out_en_a = 1;
         out_en_b = 1;

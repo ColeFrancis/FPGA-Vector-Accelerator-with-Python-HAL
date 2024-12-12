@@ -4,22 +4,22 @@ module vector_element_alu #(
         parameter MULT_SHIFT = 0
     )(
         input logic [BITS-1:0] A [N-1:0],
-        input logic [7:0] A_len,
+        input logic [BITS-1:0] A_len,
         input logic [BITS-1:0] B [N-1:0],
-        input logic [7:0] B_len,
+        input logic [BITS-1:0] B_len,
         input logic [BITS-1:0] scalar,
         input logic [2:0] op_sel,
         input logic scalar_sel,
         input logic set,
         input logic en,
         output logic [BITS-1:0] S [N-1:0],
-        output logic [7:0] S_len
+        output logic [BITS-1:0] S_len
     );
     
     logic [BITS-1:0] B_inter [N-1:0];
     logic [7:0] S_len_inter;
 
-    assign S_len_inter = (A_len > B_len) ? A_len : B_len;
+    assign S_len_inter = (scalar_sel) ? A_len : ((A_len > B_len) ? A_len : B_len);
 
     register #(
         .BITS(8)

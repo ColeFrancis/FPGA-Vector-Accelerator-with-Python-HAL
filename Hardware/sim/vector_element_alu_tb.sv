@@ -6,12 +6,15 @@ module vector_element_alu_tb;
     parameter MULT_SHIFT = 0;
     
     logic [BITS-1:0] A [N-1:0];
+    logic [7:0] A_len;
     logic [BITS-1:0] B [N-1:0];
+    logic [7:0] B_len;
     logic [BITS-1:0] scalar;
     logic [2:0] op_sel;
     logic scalar_sel;
     logic set;
     logic [BITS-1:0] S [N-1:0];
+    logic [7:0] S_len;
     logic en;
     
     vector_element_alu #(
@@ -20,14 +23,15 @@ module vector_element_alu_tb;
         .MULT_SHIFT(MULT_SHIFT)
     ) alu (
         .A(A),
-        .A_len(N),
+        .A_len(A_len),
         .B(B),
-        .B_len(N),
+        .B_len(B_len),
         .scalar(scalar),
         .op_sel(op_sel),
         .scalar_sel(scalar_sel),
         .set(set),
         .S(S),
+        .S_len(S_len),
         .en(en)
     );
     
@@ -37,6 +41,7 @@ module vector_element_alu_tb;
         en = 0;
         set = 0;
         
+        A_len = 4;
         A[3] = 20;
         A[2] = 10;
         A[1] = 5;
