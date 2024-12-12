@@ -1,5 +1,5 @@
-#ifndef SERIAL_INTERFACE_H
-#define SERIAL_INTERFACE_H
+#ifndef UART_SERIAL_HPP
+#define UART_SERIAL_HPP
 
 #include <iostream>
 #include <cstdint>
