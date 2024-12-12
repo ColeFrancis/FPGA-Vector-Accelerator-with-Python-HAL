@@ -5,6 +5,7 @@ module vector_reg #(
         input logic [BITS-1:0] in [N-1:0],
         input logic set,
         input logic en,
+        input logic clk,
         output logic [BITS-1:0] out [N-1:0]
     );
     
@@ -17,6 +18,7 @@ module vector_reg #(
                 .in(in[i]),
                 .set(set),
                 .en(en),
+                .clk(clk),
                 .out(out[i])
             );
         end
