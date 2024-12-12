@@ -12,6 +12,7 @@ module vector_element_alu #(
         input logic scalar_sel,
         input logic set,
         input logic en,
+        input logic clk,
         output logic [BITS-1:0] S [N-1:0],
         output logic [BITS-1:0] S_len
     );
@@ -27,6 +28,7 @@ module vector_element_alu #(
         .in(S_len_inter),
         .set(set),
         .en(en),
+        .clk(clk),
         .out(S_len)
     );
     
@@ -44,7 +46,8 @@ module vector_element_alu #(
                 .sel(op_sel),
                 .set(set),
                 .S(S[i]),
-                .en(en)
+                .en(en),
+                .clk(clk)
             );
         end
     endgenerate
@@ -60,6 +63,7 @@ module single_element_alu #(
         input logic [2:0] sel,
         input logic set,
         input logic en,
+        input logic clk,
         output logic [BITS-1:0] S
     );
     
@@ -118,6 +122,7 @@ module single_element_alu #(
         .in(S_int),
         .set(set),
         .en(en),
+        .clk(clk),
         .out(S)
     );
 endmodule
