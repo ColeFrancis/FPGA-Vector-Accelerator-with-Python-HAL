@@ -4,21 +4,16 @@ module register #(
         input logic [BITS-1:0] in,
         input logic set,
         input logic en,
+        input logic clk,
         output logic [BITS-1:0] out
     );
     
-    logic [BITS-1:0] inter;
+    logic [BITS-1:0] mem;
     
-    always_ff @(posedge set) begin
-        inter <= in;
+    always_ff @(posedge clk) begin
+        if(set) mem <= in;
     end
         
-    always_comb begin
-        if (en) begin
-            out = inter;
-        end else begin
-            out = 'z;
-        end
-    end 
+    assign out = en ? mem : 'z;
        
 endmodule
