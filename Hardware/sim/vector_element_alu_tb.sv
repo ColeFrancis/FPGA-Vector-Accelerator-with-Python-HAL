@@ -16,6 +16,7 @@ module vector_element_alu_tb;
     logic [BITS-1:0] S [N-1:0];
     logic [7:0] S_len;
     logic en;
+    logic clk;
     
     vector_element_alu #(
         .BITS(BITS),
@@ -30,10 +31,16 @@ module vector_element_alu_tb;
         .op_sel(op_sel),
         .scalar_sel(scalar_sel),
         .set(set),
+        .clk(clk),
         .S(S),
         .S_len(S_len),
         .en(en)
     );
+    
+    initial begin
+        clk = 0;
+        forever #5 clk = ~clk;
+    end
     
     initial begin
         op_sel = 0;
@@ -49,21 +56,21 @@ module vector_element_alu_tb;
         
         scalar = -1;
         
-        #10
+        #12
         
         set = 1;
         en = 1;
         
-        #5
+        #10
         
         set = 0;
       
         
         for (int i=0; i<8; i++) begin
             op_sel = op_sel + 1;
-            #5;
+            #10;
             set = 1;
-            #5;
+            #10;
             set = 0;
         end
     end
