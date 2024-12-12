@@ -2,6 +2,7 @@ module vec_reg_bank #(
         parameter BITS = 8,
         parameter N = 64
     )(
+        input logic clk,
         input logic [BITS-1:0] in [N-1:0],
         input logic [BITS-1:0] in_len,
         input logic [3:0] in_sel,
@@ -75,6 +76,7 @@ module vec_reg_bank #(
                 .in(in_len),
                 .set(reg_write[i]),
                 .en(1),
+                .clk(clk),
                 .out(reg_len_out[i])
             );
                 
@@ -82,6 +84,7 @@ module vec_reg_bank #(
                 .in(in),
                 .set(reg_write[i]),
                 .en(1),
+                .clk(clk),
                 .out(reg_out[i])
             );
         end
