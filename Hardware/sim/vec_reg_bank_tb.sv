@@ -36,6 +36,7 @@ module vec_reg_bank_tb;
     logic [7:0] out_a_len;
     logic [BITS-1:0] out_b [N-1:0];
     logic [7:0] out_b_len;
+    logic clk;
     
     vec_reg_bank #(
         .BITS(BITS),
@@ -52,8 +53,14 @@ module vec_reg_bank_tb;
         .out_a(out_a),
         .out_a_len(out_a_len),
         .out_b(out_b),
-        .out_b_len(out_b_len)
+        .out_b_len(out_b_len),
+        .clk(clk)
     );
+    
+    initial begin
+        clk = 0;
+        forever #5 clk = ~clk;
+    end
     
     initial begin
         data_in[0] = 8'b00001111;
@@ -63,12 +70,17 @@ module vec_reg_bank_tb;
         in_len = 2;
         
         in_sel = 0;
+        
+        out_en_a = 1;
+        out_en_b = 1;
+        out_sel_a = 1;
+        out_sel_b = 0;
          
-        #10
+        #12
         
         write = 1;
         
-        #5
+        #10
         
         write = 0;
         in_sel = 1;
@@ -77,7 +89,7 @@ module vec_reg_bank_tb;
         data_in[2] = 8'b01111101;
         in_len = 3;
         
-        #5
+        #10
         
         write = 1;
         
@@ -87,18 +99,16 @@ module vec_reg_bank_tb;
         in_sel = 2;
         data_in[0] = 8'b00000001;
         data_in[1] = 8'b00000000;
-        data_in[2] = 8'b00000000;
+        data_in[2] = 8'b00001100;
         in_len = 2;
         
-        #5
+        #10
         
         write = 1;
         
-        #5
+        #10
         
-        out_sel_a = 1;
-        out_sel_b = 0;
-        out_en_a = 1;
-        out_en_b = 1;
+        out_en_a = 0;
+        out_sel_b = 2;
     end
 endmodule
